@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Python Code</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#runPythonCodeBtn").click(function(){
+                var sentence = $("#inputSentence").val();
+                $.ajax({
+                    url: "/run_python_code",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({sentence: sentence}),
+                    success: function(response) {
+                        $("#outputText").val(response.result);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="inputSentence" placeholder="Enter a sentence">
+    <button id="runPythonCodeBtn">Run Python Code</button>
+    <br>
+    <textarea id="outputText" rows="4" cols="50" readonly></textarea>
+</body>
+</html>
